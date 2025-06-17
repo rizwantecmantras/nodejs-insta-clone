@@ -20,6 +20,9 @@ class PostRepository {
   async delete(id) {
     return await Post.findByIdAndDelete(id);
   }
+  async findByUserId(userId) {
+      return await Post.find({user:userId}).select('-password');
+  }
 }
 
 export default new PostRepository();

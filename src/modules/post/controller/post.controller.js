@@ -20,6 +20,24 @@ class PostController {
       res.status(500).json({ message: "Internal Server Error", error: error.message });
     }
   }
+  async getPostsByUserId(req, res) {
+    try {
+      const userId = req.query.userId;
+      const posts = await postServices.getPostsByUserId(userId);
+      res.status(200).json({ message: "Posts fetched successfully", posts });
+    } catch (error) {
+      res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
+  }
+  async deletePost(req, res) {
+    try {
+      const postId = req.params.postId;
+      const post = await postServices.deletePost(postId);
+      res.status(200).json({ message: "Post deleted successfully", post });
+    } catch (error) {
+      res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
+  }
 }
 
 export default new PostController();
